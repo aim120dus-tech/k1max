@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="de-CH">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Creality K1 Max – Geräteausstellung M214</title>
+<meta name="description" content="Geräteausstellung TBZ Modul 214 LB02: Der 3D-Drucker Creality K1 Max – Daten, Funktionen, Inbetriebnahme und Installation von Creality Print.">
+<style>
+  :root{
+    --bg:#0d1014; --bg2:#141920; --card:#1a2029; --line:#2a323e;
+    --text:#e8ecf1; --muted:#9aa5b4; --accent:#ff8a3d; --accent2:#ffb27a;
+    --ok:#4fd1a5; --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+  a{color:var(--accent2)}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 22px}
+
+  /* Navigation */
+  nav{position:sticky;top:0;z-index:10;background:rgba(13,16,20,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+  .logo{font-weight:800;letter-spacing:.5px}
+  .logo span{color:var(--accent)}
+  nav ul{list-style:none;display:flex;gap:22px}
+  nav ul a{color:var(--muted);text-decoration:none;font-size:.95rem}
+  nav ul a:hover{color:var(--text)}
+  .burger{display:none;background:none;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:6px 10px;font-size:1rem;cursor:pointer}
+
+  /* Hero */
+  header.hero{padding:80px 0 60px;background:radial-gradient(1000px 500px at 80% 10%,rgba(255,138,61,.15),transparent 60%)}
+  .hero .wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .tag{display:inline-block;font-size:.8rem;color:var(--accent2);border:1px solid rgba(255,138,61,.4);padding:4px 12px;border-radius:99px;margin-bottom:18px}
+  h1{font-size:clamp(2.2rem,5vw,3.6rem);line-height:1.1;margin-bottom:18px}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lead{color:var(--muted);font-size:1.12rem;max-width:520px;margin-bottom:28px}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:12px 22px;border-radius:10px;text-decoration:none;font-weight:600}
+  .btn.primary{background:var(--accent);color:#1a0f05}
+  .btn.ghost{border:1px solid var(--line);color:var(--text)}
+  .btn:hover{filter:brightness(1.1)}
+  .kpis{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap}
+  .kpi b{display:block;font-size:1.6rem;color:var(--text)}
+  .kpi small{color:var(--muted)}
+  .printer svg{width:100%;height:auto;max-width:420px;display:block;margin:0 auto}
+  .nozzle{animation:move 3.2s ease-in-out infinite}
+  @keyframes move{0%,100%{transform:translateX(-60px)}50%{transform:translateX(60px)}}
+  .layer{animation:grow 6s ease-in-out infinite;transform-origin:bottom}
+  @keyframes grow{0%{transform:scaleY(.2)}80%,100%{transform:scaleY(1)}}
+
+  /* Sections */
+  section{padding:70px 0;border-top:1px solid var(--line)}
+  section:nth-of-type(even){background:var(--bg2)}
+  h2{font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:10px}
+  .sub{color:var(--muted);margin-bottom:34px;max-width:680px}
+  .grid{display:grid;gap:18px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .card h3{font-size:1.08rem;margin-bottom:8px}
+  .card p{color:var(--muted);font-size:.95rem}
+  .icon{font-size:1.7rem;margin-bottom:10px}
+
+  /* Tabelle */
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+  th,td{text-align:left;padding:13px 18px;border-bottom:1px solid var(--line);font-size:.96rem}
+  th{width:40%;color:var(--muted);font-weight:500}
+  tr:last-child th,tr:last-child td{border-bottom:none}
+  tr:hover td,tr:hover th{background:rgba(255,255,255,.02)}
+
+  /* Materialien */
+  .chips{display:flex;flex-wrap:wrap;gap:10px}
+  .chip{background:var(--card);border:1px solid var(--line);padding:8px 14px;border-radius:99px;cursor:pointer;font-size:.92rem;color:var(--text)}
+  .chip.active{border-color:var(--accent);color:var(--accent2)}
+  .matinfo{margin-top:18px;min-height:96px}
+  .matinfo .row{display:flex;gap:28px;flex-wrap:wrap;margin-top:8px;color:var(--muted);font-size:.92rem}
+  .matinfo .row b{color:var(--text)}
+
+  /* Schritte */
+  .tabs{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+  .tab{background:var(--card);border:1px solid var(--line);color:var(--muted);padding:10px 18px;border-radius:10px;cursor:pointer;font-size:.95rem}
+  .tab.active{background:var(--accent);color:#1a0f05;border-color:var(--accent);font-weight:600}
+  .panel{display:none}
+  .panel.active{display:block}
+  ol.steps{list-style:none;counter-reset:s;display:grid;gap:12px}
+  ol.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px 16px 64px;position:relative;cursor:pointer;transition:border-color .2s}
+  ol.steps li::before{content:counter(s);position:absolute;left:18px;top:15px;width:30px;height:30px;border-radius:50%;background:rgba(255,138,61,.15);color:var(--accent2);display:grid;place-items:center;font-weight:700;font-size:.9rem}
+  ol.steps li.done{border-color:var(--ok)}
+  ol.steps li.done::before{content:"✓";background:rgba(79,209,165,.18);color:var(--ok)}
+  ol.steps li b{display:block;margin-bottom:3px}
+  ol.steps li span{color:var(--muted);font-size:.94rem}
+  .progress{height:6px;background:var(--line);border-radius:99px;overflow:hidden;margin:4px 0 20px}
+  .progress div{height:100%;width:0;background:var(--ok);transition:width .3s}
+  .hint{color:var(--muted);font-size:.85rem;margin-bottom:10px}
+  code{background:#0b0e12;border:1px solid var(--line);padding:1px 6px;border-radius:5px;font-size:.88em}
+
+  /* Hinweise */
+  .warn{border-left:4px solid var(--accent)}
+  footer{padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.9rem}
+  footer .wrap{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
+
+  @media (max-width:900px){
+    .hero .wrap{grid-template-columns:1fr}
+    .g3,.g4{grid-template-columns:1fr 1fr}
+    nav ul{display:none;position:absolute;top:60px;left:0;right:0;flex-direction:column;background:var(--bg);padding:16px 22px;border-bottom:1px solid var(--line)}
+    nav ul.open{display:flex}
+    .burger{display:block}
+  }
+  @media (max-width:560px){
+    .g3,.g4{grid-template-columns:1fr}
+    th{width:45%}
+    th,td{padding:11px 12px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo">K1 <span>MAX</span></div>
+    <button class="burger" id="burger" aria-label="Menü">☰</button>
+    <ul id="menu">
+      <li><a href="#ueberblick">Überblick</a></li>
+      <li><a href="#daten">Technische Daten</a></li>
+      <li><a href="#funktionen">Funktionen</a></li>
+      <li><a href="#materialien">Materialien</a></li>
+      <li><a href="#installation">Installation</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div>
+      <div class="tag">TBZ · Modul 214 · LB02 Geräteausstellung</div>
+      <h1>Creality <em>K1 Max</em><br>3D-Drucker</h1>
+      <p class="lead">Ein geschlossener CoreXY-Drucker mit grossem Bauraum, bis zu 600 mm/s Druckgeschwindigkeit und KI-Unterstützung – fertig montiert und in wenigen Minuten druckbereit.</p>
+      <div class="btns">
+        <a class="btn primary" href="#installation">Zur Installationsanleitung</a>
+        <a class="btn ghost" href="#daten">Technische Daten</a>
+      </div>
+      <div class="kpis">
+        <div class="kpi"><b>300³ mm</b><small>Bauraum</small></div>
+        <div class="kpi"><b>600 mm/s</b><small>max. Geschwindigkeit</small></div>
+        <div class="kpi"><b>300 °C</b><small>max. Düse</small></div>
+      </div>
+    </div>
+    <div class="printer" aria-hidden="true">
+      <svg viewBox="0 0 400 440" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity=".10"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity=".02"/>
+          </linearGradient>
+        </defs>
+        <!-- Gehäuse -->
+        <rect x="40" y="30" width="320" height="380" rx="18" fill="#1d232c" stroke="#3a4452" stroke-width="3"/>
+        <rect x="40" y="30" width="320" height="26" rx="12" fill="#262e39"/>
+        <!-- Fenster -->
+        <rect x="62" y="70" width="276" height="270" rx="8" fill="#0e1217" stroke="#3a4452" stroke-width="2"/>
+        <!-- Gantry -->
+        <rect x="72" y="100" width="256" height="8" rx="4" fill="#4a5564"/>
+        <g class="nozzle">
+          <rect x="182" y="92" width="36" height="34" rx="5" fill="#ff8a3d"/>
+          <polygon points="194,126 206,126 200,138" fill="#ffb27a"/>
+        </g>
+        <!-- Objekt -->
+        <g class="layer">
+          <path d="M160 300 L240 300 L228 230 L172 230 Z" fill="#ff8a3d" opacity=".85"/>
+          <line x1="164" y1="285" x2="236" y2="285" stroke="#1a0f05" stroke-opacity=".25"/>
+          <line x1="167" y1="270" x2="233" y2="270" stroke="#1a0f05" stroke-opacity=".25"/>
+          <line x1="169" y1="255" x2="231" y2="255" stroke="#1a0f05" stroke-opacity=".25"/>
+          <line x1="171" y1="242" x2="229" y2="242" stroke="#1a0f05" stroke-opacity=".25"/>
+        </g>
+        <!-- Druckbett -->
+        <rect x="92" y="300" width="216" height="12" rx="3" fill="#59667a"/>
+        <rect x="62" y="70" width="276" height="270" rx="8" fill="url(#glass)"/>
+        <!-- Display -->
+        <rect x="150" y="356" width="100" height="36" rx="6" fill="#0e1217" stroke="#3a4452"/>
+        <circle cx="168" cy="374" r="5" fill="#4fd1a5"/>
+        <rect x="180" y="368" width="56" height="4" rx="2" fill="#3a4452"/>
+        <rect x="180" y="377" width="38" height="4" rx="2" fill="#3a4452"/>
+        <!-- Füsse -->
+        <rect x="70" y="410" width="40" height="10" rx="3" fill="#262e39"/>
+        <rect x="290" y="410" width="40" height="10" rx="3" fill="#262e39"/>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section id="ueberblick">
+  <div class="wrap">
+    <h2>Überblick</h2>
+    <p class="sub">Der K1 Max ist das grosse Modell der K1-Serie von Creality (erschienen 2023). Er arbeitet nach dem FDM-Verfahren: Kunststoff-Filament wird geschmolzen und Schicht für Schicht zu einem Objekt aufgebaut.</p>
+    <div class="grid g3">
+      <div class="card"><div class="icon">⚡</div><h3>Schnell</h3><p>CoreXY-Mechanik mit 20 000 mm/s² Beschleunigung – erreicht 600 mm/s in rund 0,03 Sekunden.</p></div>
+      <div class="card"><div class="icon">📦</div><h3>Gross</h3><p>300 × 300 × 300 mm Bauraum für Prototypen, Gehäuse oder mehrere Teile auf einmal.</p></div>
+      <div class="card"><div class="icon">🤖</div><h3>Smart</h3><p>KI-Kamera und LiDAR überwachen den Druck, das Bett nivelliert sich automatisch.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="daten">
+  <div class="wrap">
+    <h2>Technische Daten</h2>
+    <p class="sub">Die wichtigsten Kennzahlen auf einen Blick.</p>
+    <table>
+      <tr><th>Drucktechnologie</th><td>FDM (Fused Deposition Modeling)</td></tr>
+      <tr><th>Mechanik</th><td>CoreXY, Rahmen aus Aluminium-Druckguss</td></tr>
+      <tr><th>Bauraum</th><td>300 × 300 × 300 mm</td></tr>
+      <tr><th>Gerätemasse</th><td>435 × 462 × 526 mm</td></tr>
+      <tr><th>Gewicht</th><td>ca. 18 kg</td></tr>
+      <tr><th>Max. Geschwindigkeit</th><td>600 mm/s (typisch ca. 300 mm/s)</td></tr>
+      <tr><th>Max. Beschleunigung</th><td>20 000 mm/s²</td></tr>
+      <tr><th>Max. Durchfluss</th><td>32 mm³/s</td></tr>
+      <tr><th>Schichthöhe</th><td>0,1 – 0,35 mm</td></tr>
+      <tr><th>Genauigkeit</th><td>± 0,1 mm</td></tr>
+      <tr><th>Extruder</th><td>Direct Drive mit Doppelzahnrad</td></tr>
+      <tr><th>Filament / Düse</th><td>1,75 mm / 0,4 mm (Standard)</td></tr>
+      <tr><th>Düsentemperatur</th><td>bis 300 °C</td></tr>
+      <tr><th>Heizbett</th><td>bis 100 °C, flexible Druckplatte</td></tr>
+      <tr><th>Nivellierung</th><td>Automatisch (Drucksensor + KI-LiDAR)</td></tr>
+      <tr><th>Display</th><td>4,3" Farb-Touchscreen</td></tr>
+      <tr><th>Datenübertragung</th><td>WLAN, Ethernet, USB-Stick</td></tr>
+      <tr><th>Software</th><td>Creality OS (Klipper-basiert), Slicer: Creality Print</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="funktionen">
+  <div class="wrap">
+    <h2>Funktionen</h2>
+    <p class="sub">Was den K1 Max im Alltag besonders macht.</p>
+    <div class="grid g4">
+      <div class="card"><div class="icon">📡</div><h3>KI-LiDAR</h3><p>Scannt die erste Schicht und erkennt Fehler, bevor der ganze Druck misslingt.</p></div>
+      <div class="card"><div class="icon">📷</div><h3>KI-Kamera</h3><p>Überwacht den Druck, erkennt «Spaghetti» und Fremdkörper und ermöglicht Zeitraffer.</p></div>
+      <div class="card"><div class="icon">🎯</div><h3>Auto-Leveling</h3><p>Das Druckbett wird ohne Papiertrick vollautomatisch vermessen.</p></div>
+      <div class="card"><div class="icon">🔒</div><h3>Geschlossenes Gehäuse</h3><p>Stabile Temperatur für ABS/ASA, Glasdeckel und Aktivkohle-Luftfilter.</p></div>
+      <div class="card"><div class="icon">🧪</div><h3>Selbsttest</h3><p>Beim ersten Start prüft der Drucker Motoren, Lüfter und Resonanzen selbst.</p></div>
+      <div class="card"><div class="icon">🌀</div><h3>Input Shaping</h3><p>G-Sensor misst Vibrationen und gleicht sie aus – sauber trotz hoher Geschwindigkeit.</p></div>
+      <div class="card"><div class="icon">🔥</div><h3>Keramik-Heizung</h3><p>Hotend heizt sehr schnell auf und schmilzt viel Filament pro Sekunde.</p></div>
+      <div class="card"><div class="icon">🌐</div><h3>Netzwerk</h3><p>Druckaufträge per WLAN oder LAN direkt aus Creality Print senden.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="materialien">
+  <div class="wrap">
+    <h2>Materialien</h2>
+    <p class="sub">Dank Gehäuse und 300 °C-Hotend verarbeitet der K1 Max viele Filamente. Klicke auf ein Material:</p>
+    <div class="chips" id="chips"></div>
+    <div class="card matinfo" id="matinfo"></div>
+    <p class="hint" style="margin-top:12px">Richtwerte – immer die Angaben auf der Filamentrolle beachten.</p>
+  </div>
+</section>
+
+<section id="installation">
+  <div class="wrap">
+    <h2>Inbetriebnahme &amp; Installation</h2>
+    <p class="sub">Schritt-für-Schritt vom Auspacken bis zum ersten Druck. Klicke auf einen Schritt, um ihn abzuhaken.</p>
+    <div class="tabs">
+      <button class="tab active" data-panel="p1">1 · Drucker aufstellen</button>
+      <button class="tab" data-panel="p2">2 · Creality Print installieren</button>
+      <button class="tab" data-panel="p3">3 · Erster Druck</button>
+    </div>
+
+    <div class="panel active" id="p1">
+      <div class="progress"><div></div></div>
+      <ol class="steps">
+        <li><b>Standort wählen</b><span>Stabile, ebene Fläche mit genug Platz (ca. 18 kg, Glasdeckel oben). Gut belüfteter Raum.</span></li>
+        <li><b>Auspacken</b><span>Drucker aus der Kartonverpackung heben und alle Schaumstoffteile, auch im Innenraum, entfernen.</span></li>
+        <li><b>Transportsicherung lösen</b><span>Die drei Schrauben lösen, die das Druckbett für den Transport fixieren.</span></li>
+        <li><b>Zubehör montieren</b><span>Touchscreen-Kabel anschliessen, Filamenthalter anschrauben, Glasdeckel aufsetzen.</span></li>
+        <li><b>Strom anschliessen</b><span>Spannung prüfen, Netzkabel einstecken und Drucker einschalten.</span></li>
+        <li><b>Selbsttest durchführen</b><span>Den Assistenten auf dem Touchscreen folgen: Sprache, Selbsttest, automatische Nivellierung.</span></li>
+        <li><b>Netzwerk einrichten</b><span>Unter Einstellungen → Netzwerk mit dem WLAN verbinden (oder LAN-Kabel) und die IP-Adresse notieren.</span></li>
+        <li><b>Filament einlegen</b><span>Rolle aufhängen, Filament durch den Sensor zum Extruder führen und über «Filament laden» einziehen.</span></li>
+      </ol>
+    </div>
+
+    <div class="panel" id="p2">
+      <div class="progress"><div></div></div>
+      <ol class="steps">
+        <li><b>Download</b><span>Auf der offiziellen Creality-Website den Bereich «Software» öffnen und Creality Print für Windows, macOS oder Linux herunterladen.</span></li>
+        <li><b>Installer starten</b><span>Die heruntergeladene Datei (z. B. <code>.exe</code>) ausführen und die Sicherheitsabfrage von Windows bestätigen.</span></li>
+        <li><b>Setup durchlaufen</b><span>Lizenz akzeptieren, Installationsordner wählen und «Installieren» klicken. Danach Creality Print starten.</span></li>
+        <li><b>Region &amp; Sprache</b><span>Beim ersten Start Region (Europa) und Sprache (Deutsch) festlegen.</span></li>
+        <li><b>Drucker auswählen</b><span>Im Assistenten «Creality K1 Max» mit 0,4-mm-Düse anhaken und die gewünschten Filament-Profile wählen.</span></li>
+        <li><b>Drucker verbinden</b><span>Im Reiter «Gerät» den Drucker hinzufügen – er wird im selben Netzwerk automatisch gefunden, sonst die IP-Adresse eingeben.</span></li>
+        <li><b>Verbindung testen</b><span>Wenn Kamerabild und Temperaturen erscheinen, ist die Installation abgeschlossen.</span></li>
+      </ol>
+    </div>
+
+    <div class="panel" id="p3">
+      <div class="progress"><div></div></div>
+      <ol class="steps">
+        <li><b>Modell laden</b><span>STL- oder 3MF-Datei per Drag &amp; Drop in Creality Print ziehen (z. B. einen Benchy-Testwürfel).</span></li>
+        <li><b>Einstellungen wählen</b><span>Filament (z. B. Hyper PLA), Schichthöhe 0,2 mm und bei Bedarf Stützstrukturen aktivieren.</span></li>
+        <li><b>Slicen</b><span>Auf «Slicen» klicken und Vorschau, Druckzeit und Filamentverbrauch prüfen.</span></li>
+        <li><b>An Drucker senden</b><span>Über «Drucken» direkt per Netzwerk senden – oder G-Code auf einen USB-Stick exportieren.</span></li>
+        <li><b>Erste Schicht beobachten</b><span>Die erste Schicht kontrollieren; LiDAR und Kamera helfen dabei.</span></li>
+        <li><b>Druck entnehmen</b><span>Abkühlen lassen, flexible Platte herausnehmen und leicht biegen – das Objekt löst sich.</span></li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="sicherheit">
+  <div class="wrap">
+    <h2>Sicherheit &amp; Pflege</h2>
+    <p class="sub">Damit der Drucker lange zuverlässig läuft.</p>
+    <div class="grid g3">
+      <div class="card warn"><h3>Heisse Teile</h3><p>Düse (bis 300 °C) und Heizbett nicht berühren, solange der Drucker arbeitet oder abkühlt.</p></div>
+      <div class="card warn"><h3>Belüftung</h3><p>Bei ABS/ASA entstehen Dämpfe – Raum lüften, Aktivkohlefilter regelmässig ersetzen.</p></div>
+      <div class="card warn"><h3>Wartung</h3><p>Druckplatte sauber halten, Firmware aktuell halten und Riemen/Achsen gelegentlich prüfen.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>Geräteausstellung · TBZ Technische Berufsschule Zürich · Modul 214 · LB02</div>
+    <div>Gerät: Creality K1 Max · Angaben gemäss Herstellerdaten</div>
+  </div>
+</footer>
+
+<script>
+  // Mobile Menü
+  const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+  burger.addEventListener('click',()=>menu.classList.toggle('open'));
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>menu.classList.remove('open')));
+
+  // Materialien
+  const mats={
+    'PLA':{d:'Einfachstes Material, ideal für Einsteiger und Prototypen.',n:'190–230 °C',b:'50–60 °C',l:'Einfach'},
+    'PETG':{d:'Robust, leicht flexibel und wasserbeständig – gut für Funktionsteile.',n:'220–250 °C',b:'70–80 °C',l:'Mittel'},
+    'ABS':{d:'Hitzebeständig und stabil, braucht ein geschlossenes Gehäuse.',n:'240–270 °C',b:'90–100 °C',l:'Mittel'},
+    'ASA':{d:'Wie ABS, aber UV-beständig – für Teile im Freien.',n:'240–270 °C',b:'90–100 °C',l:'Mittel'},
+    'TPU':{d:'Gummiartig und flexibel, z. B. für Handyhüllen oder Dichtungen.',n:'210–240 °C',b:'40–60 °C',l:'Anspruchsvoll'},
+    'PA (Nylon)':{d:'Sehr zäh und abriebfest, nimmt aber Feuchtigkeit auf – trocken lagern.',n:'250–290 °C',b:'80–100 °C',l:'Anspruchsvoll'},
+    'PC':{d:'Sehr stabil und hitzebeständig, verzieht sich leicht.',n:'260–300 °C',b:'90–100 °C',l:'Anspruchsvoll'},
+    'Carbon (CF)':{d:'Mit Kohlefasern verstärkt – steif und leicht. Gehärtete Düse empfohlen.',n:'je nach Basis',b:'je nach Basis',l:'Anspruchsvoll'}
+  };
+  const chips=document.getElementById('chips'),info=document.getElementById('matinfo');
+  function show(k){
+    chips.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c.textContent===k));
+    const m=mats[k];
+    info.innerHTML='<h3>'+k+'</h3><p>'+m.d+'</p><div class="row"><div>Düse: <b>'+m.n+'</b></div><div>Bett: <b>'+m.b+'</b></div><div>Schwierigkeit: <b>'+m.l+'</b></div></div>';
+  }
+  Object.keys(mats).forEach(k=>{
+    const b=document.createElement('button');b.className='chip';b.textContent=k;
+    b.addEventListener('click',()=>show(k));chips.appendChild(b);
+  });
+  show('PLA');
+
+  // Tabs
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');document.getElementById(t.dataset.panel).classList.add('active');
+  }));
+
+  // Schritte abhaken
+  document.querySelectorAll('.panel').forEach(p=>{
+    const items=p.querySelectorAll('.steps li'),bar=p.querySelector('.progress div');
+    const upd=()=>{bar.style.width=(p.querySelectorAll('.steps li.done').length/items.length*100)+'%'};
+    items.forEach(li=>li.addEventListener('click',()=>{li.classList.toggle('done');upd()}));
+  });
+</script>
+</body>
+</html>
